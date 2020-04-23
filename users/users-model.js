@@ -10,6 +10,10 @@ async function add(user) {
     return findById(id);
 }
 
+function findBy(filter) {
+    return db('users').where(filter);
+}
+
 function findById(id) {
     return db('users')
     .where({ id })
@@ -19,5 +23,6 @@ function findById(id) {
 module.exports = {
     find,
     add,
+    findBy,
     findById
 }
