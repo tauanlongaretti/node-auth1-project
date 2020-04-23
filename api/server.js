@@ -1,15 +1,31 @@
-const express = require('express');
+const express = require("express");
 
-const authRouter = require('../auth/auth-router.js');
+const session = require("express-session");
+
+const authRouter = require("../auth/auth-router.js");
 
 const server = express();
 
+const sessionConfig = {
+  name: "chocolate-chip",
+  secret: "myspeshulsecret",
+  cookie: {
+    maxAge: 3600 * 1000,
+    secure: false,
+    httpOnly: true,
+  },
+  resave: false,
+  saveUnitialized: false,
+};
+
 server.use(express.json());
 
-server.use('/api', authRouter);
+server.use(session(sessionConfig));
 
-server.get('/', (req, res) => {
-    res.json({ api: "up" })
+server.use("/api", authRouter);
+
+server.get("/", (req, res) => {
+  res.json({ api: "up" });
 });
 
 module.exports = server;
