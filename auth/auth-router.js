@@ -36,16 +36,4 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.get("/users", (req, res) => {
-    if (req.session && req.session.user) {
-        Users.find()
-        .then(users => {
-            res.json(users);
-        })
-        .catch(err => res.send(err));
-    } else {
-        res.status(401).json({ message: "You shall not pass!" })
-    }
-});
-
 module.exports = router;
